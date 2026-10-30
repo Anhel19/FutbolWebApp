@@ -1,0 +1,64 @@
+Use cWebView.pkg
+Use cWebPanel.pkg
+Use cWebForm.pkg
+Use cWebButton.pkg
+Use cequipoDataDictionary.dd
+
+Object oEquipoZoom is a cWebView
+    Set psCaption to "Equipo"
+
+    Object oEquipoDDO is a cequipoDataDictionary
+        Set DDO_Server to Self
+    End_Object
+
+    Object oWebMainPanel is a cWebPanel
+        Set piColumnCount to 12
+
+        Object oIdForm is a cWebForm
+            Entry_Item equipo.ID
+            Set psCaption to "ID"
+            Set piColumnSpan to 3
+            Set pbReadOnly to True
+        End_Object
+
+        Object oNombreForm is a cWebForm
+            Entry_Item equipo.Nombre
+            Set psCaption to "Nombre"
+            Set piColumnSpan to 9
+        End_Object
+
+        Object oLigaIDForm is a cWebForm
+            Entry_Item equipo.LigaID
+            Set psCaption to "Liga ID"
+            Set piColumnSpan to 4
+        End_Object
+
+        Object oLigaNombreForm is a cWebForm
+            Entry_Item liga.Nombre
+            Set psCaption to "Nombre Liga"
+            Set piColumnSpan to 8
+            Set pbReadOnly to True
+        End_Object
+
+        Object oSaveBtn is a cWebButton
+            Set psCaption to "Guardar"
+            Set piColumnSpan to 2
+
+            Procedure OnClick
+                Send Request_Save
+            End_Procedure
+        End_Object
+
+        Object oDeleteBtn is a cWebButton
+            Set psCaption to "Eliminar"
+            Set piColumnSpan to 2
+            Set piColumnIndex to 2
+
+            Procedure OnClick
+                Send Request_Delete
+            End_Procedure
+        End_Object
+
+    End_Object
+
+End_Object
