@@ -24,3 +24,13 @@ IdeSrc/*.mtd
 
 # Temporales
 *.tmp
+
+# Compilados DataFlex adicionales
+*.dep
+*.prn
+*.x64.dep
+*.x64.prn
+*.exe.manifest
+*.x64.cch
+AppHtml/
+Programs/
