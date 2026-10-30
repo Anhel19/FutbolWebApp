@@ -1,0 +1,74 @@
+Use cWebView.pkg
+Use cWebPanel.pkg
+Use cWebList.pkg
+Use cWebColumn.pkg
+Use cWebButton.pkg
+Use cjugadorDataDictionary.dd
+
+Object oJugadorSelect is a cWebView
+    Set psCaption to "Jugadores"
+
+    Object oJugadorDDO is a cjugadorDataDictionary
+        Set DDO_Server to Self
+    End_Object
+
+    Object oWebMainPanel is a cWebPanel
+        Set piColumnCount to 12
+
+        Object oNewBtn is a cWebButton
+            Set psCaption to "Nuevo"
+            Set piColumnSpan to 2
+
+            WebRegisterPath ntNavigateForward oJugadorZoom
+
+            Procedure OnClick
+                Send Request_Clear of oJugadorDDO
+                Send NavigatePath
+            End_Procedure
+        End_Object
+
+        Object oJugadorList is a cWebList
+            Set pbServerOnRowClick to True
+            Set piColumnSpan to 12
+
+            Object oIdCol is a cWebColumn
+                Entry_Item jugador.ID
+                Set psCaption to "ID"
+                Set piWidth to 60
+                Set pbSortable to True
+            End_Object
+
+            Object oNombreCol is a cWebColumn
+                Entry_Item jugador.Nombre
+                Set psCaption to "Nombre"
+                Set pbSortable to True
+            End_Object
+
+            Object oApellidoCol is a cWebColumn
+                Entry_Item jugador.Apellido
+                Set psCaption to "Apellido"
+                Set pbSortable to True
+            End_Object
+
+            Object oNacionalidadCol is a cWebColumn
+                Entry_Item jugador.Nacionalidad
+                Set psCaption to "Nacionalidad"
+                Set pbSortable to True
+            End_Object
+
+            Object oEquipoCol is a cWebColumn
+                Entry_Item equipo.Nombre
+                Set psCaption to "Equipo"
+                Set pbSortable to True
+            End_Object
+
+            WebRegisterPath ntNavigateForward oJugadorZoom
+
+            Procedure OnRowClick String sRowId
+                Send NavigatePath
+            End_Procedure
+        End_Object
+
+    End_Object
+
+End_Object

@@ -1,0 +1,76 @@
+Use cWebView.pkg
+Use cWebPanel.pkg
+Use cWebForm.pkg
+Use cWebButton.pkg
+Use cjugadorDataDictionary.dd
+
+Object oJugadorZoom is a cWebView
+    Set psCaption to "Jugador"
+
+    Object oJugadorDDO is a cjugadorDataDictionary
+        Set DDO_Server to Self
+    End_Object
+
+    Object oWebMainPanel is a cWebPanel
+        Set piColumnCount to 12
+
+        Object oIdForm is a cWebForm
+            Entry_Item jugador.ID
+            Set psCaption to "ID"
+            Set piColumnSpan to 3
+            Set pbReadOnly to True
+        End_Object
+
+        Object oNombreForm is a cWebForm
+            Entry_Item jugador.Nombre
+            Set psCaption to "Nombre"
+            Set piColumnSpan to 9
+        End_Object
+
+        Object oApellidoForm is a cWebForm
+            Entry_Item jugador.Apellido
+            Set psCaption to "Apellido"
+            Set piColumnSpan to 9
+        End_Object
+
+        Object oNacionalidadForm is a cWebForm
+            Entry_Item jugador.Nacionalidad
+            Set psCaption to "Nacionalidad"
+            Set piColumnSpan to 6
+        End_Object
+
+        Object oEquipoIDForm is a cWebForm
+            Entry_Item jugador.EquipoID
+            Set psCaption to "Equipo ID"
+            Set piColumnSpan to 4
+        End_Object
+
+        Object oEquipoNombreForm is a cWebForm
+            Entry_Item equipo.Nombre
+            Set psCaption to "Nombre Equipo"
+            Set piColumnSpan to 8
+            Set pbReadOnly to True
+        End_Object
+
+        Object oSaveBtn is a cWebButton
+            Set psCaption to "Guardar"
+            Set piColumnSpan to 2
+
+            Procedure OnClick
+                Send Request_Save
+            End_Procedure
+        End_Object
+
+        Object oDeleteBtn is a cWebButton
+            Set psCaption to "Eliminar"
+            Set piColumnSpan to 2
+            Set piColumnIndex to 2
+
+            Procedure OnClick
+                Send Request_Delete
+            End_Procedure
+        End_Object
+
+    End_Object
+
+End_Object
