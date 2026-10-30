@@ -1,0 +1,74 @@
+Use cWebView.pkg
+Use cWebPanel.pkg
+Use cWebList.pkg
+Use cWebColumn.pkg
+Use cWebButton.pkg
+Use centrenadorDataDictionary.dd
+
+Object oEntrenadorSelect is a cWebView
+    Set psCaption to "Entrenadores"
+
+    Object oEntrenadorDDO is a centrenadorDataDictionary
+        Set DDO_Server to Self
+    End_Object
+
+    Object oWebMainPanel is a cWebPanel
+        Set piColumnCount to 12
+
+        Object oNewBtn is a cWebButton
+            Set psCaption to "Nuevo"
+            Set piColumnSpan to 2
+
+            WebRegisterPath ntNavigateForward oEntrenadorZoom
+
+            Procedure OnClick
+                Send Request_Clear of oEntrenadorDDO
+                Send NavigatePath
+            End_Procedure
+        End_Object
+
+        Object oEntrenadorList is a cWebList
+            Set pbServerOnRowClick to True
+            Set piColumnSpan to 12
+
+            Object oIdCol is a cWebColumn
+                Entry_Item entrenador.ID
+                Set psCaption to "ID"
+                Set piWidth to 60
+                Set pbSortable to True
+            End_Object
+
+            Object oNombreCol is a cWebColumn
+                Entry_Item entrenador.Nombre
+                Set psCaption to "Nombre"
+                Set pbSortable to True
+            End_Object
+
+            Object oApellidoCol is a cWebColumn
+                Entry_Item entrenador.Apellido
+                Set psCaption to "Apellido"
+                Set pbSortable to True
+            End_Object
+
+            Object oNacionalidadCol is a cWebColumn
+                Entry_Item entrenador.Nacionalidad
+                Set psCaption to "Nacionalidad"
+                Set pbSortable to True
+            End_Object
+
+            Object oEquipoCol is a cWebColumn
+                Entry_Item equipo.Nombre
+                Set psCaption to "Equipo"
+                Set pbSortable to True
+            End_Object
+
+            WebRegisterPath ntNavigateForward oEntrenadorZoom
+
+            Procedure OnRowClick String sRowId
+                Send NavigatePath
+            End_Procedure
+        End_Object
+
+    End_Object
+
+End_Object
