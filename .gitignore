@@ -1,0 +1,26 @@
+# DataFlex - archivos de datos binarios
+Data/*.dat
+Data/*.hdr
+Data/*.tag
+Data/*.k1
+Data/*.k2
+Data/*.k3
+Data/*.int
+Data/reindex.log
+Data/ODBC_DRV.log
+
+# Compilados
+Programs/*.exe
+Programs/*.wso
+Programs/*.map
+
+# IDE - configuración personal del usuario
+IdeSrc/*.dsk
+IdeSrc/*.mtd
+
+# Backups
+*.bak
+*.~*
+
+# Temporales
+*.tmp
