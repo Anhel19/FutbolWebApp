@@ -1,0 +1,51 @@
+Use cWebView.pkg
+Use cWebPanel.pkg
+Use cWebForm.pkg
+Use cWebButton.pkg
+Use cposicionDataDictionary.dd
+
+Object oPosicionZoom is a cWebView
+    Set psCaption to "Posicion"
+
+    Object oPosicionDDO is a cposicionDataDictionary
+        Set DDO_Server to Self
+    End_Object
+
+    Object oWebMainPanel is a cWebPanel
+        Set piColumnCount to 12
+
+        Object oIdForm is a cWebForm
+            Entry_Item posicion.ID
+            Set psCaption to "ID"
+            Set piColumnSpan to 3
+            Set pbReadOnly to True
+        End_Object
+
+        Object oNombreForm is a cWebForm
+            Entry_Item posicion.Nombre
+            Set psCaption to "Nombre"
+            Set piColumnSpan to 9
+        End_Object
+
+        Object oSaveBtn is a cWebButton
+            Set psCaption to "Guardar"
+            Set piColumnSpan to 2
+
+            Procedure OnClick
+                Send Request_Save
+            End_Procedure
+        End_Object
+
+        Object oDeleteBtn is a cWebButton
+            Set psCaption to "Eliminar"
+            Set piColumnSpan to 2
+            Set piColumnIndex to 2
+
+            Procedure OnClick
+                Send Request_Delete
+            End_Procedure
+        End_Object
+
+    End_Object
+
+End_Object

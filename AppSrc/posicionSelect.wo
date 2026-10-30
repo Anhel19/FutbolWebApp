@@ -1,0 +1,56 @@
+Use cWebView.pkg
+Use cWebPanel.pkg
+Use cWebList.pkg
+Use cWebColumn.pkg
+Use cWebButton.pkg
+Use cposicionDataDictionary.dd
+
+Object oPosicionSelect is a cWebView
+    Set psCaption to "Posiciones"
+
+    Object oPosicionDDO is a cposicionDataDictionary
+        Set DDO_Server to Self
+    End_Object
+
+    Object oWebMainPanel is a cWebPanel
+        Set piColumnCount to 12
+
+        Object oNewBtn is a cWebButton
+            Set psCaption to "Nuevo"
+            Set piColumnSpan to 2
+
+            WebRegisterPath ntNavigateForward oPosicionZoom
+
+            Procedure OnClick
+                Send Request_Clear of oPosicionDDO
+                Send NavigatePath
+            End_Procedure
+        End_Object
+
+        Object oPosicionList is a cWebList
+            Set pbServerOnRowClick to True
+            Set piColumnSpan to 12
+
+            Object oIdCol is a cWebColumn
+                Entry_Item posicion.ID
+                Set psCaption to "ID"
+                Set piWidth to 60
+                Set pbSortable to True
+            End_Object
+
+            Object oNombreCol is a cWebColumn
+                Entry_Item posicion.Nombre
+                Set psCaption to "Nombre"
+                Set pbSortable to True
+            End_Object
+
+            WebRegisterPath ntNavigateForward oPosicionZoom
+
+            Procedure OnRowClick String sRowId
+                Send NavigatePath
+            End_Procedure
+        End_Object
+
+    End_Object
+
+End_Object
