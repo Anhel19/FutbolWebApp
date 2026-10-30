@@ -51,6 +51,47 @@ Object oWebApp is a cWebApp
 
                 Object oViewMenu is a cWebMenuItem
                     Set psCaption to C_$View
+
+                    Object oLiga_itm is a cWebMenuItem
+                        Set psCaption to "Ligas"
+                        WebRegisterPath ntNavigateBegin oLigaSelect
+                        Procedure OnClick
+                            Send NavigatePath
+                        End_Procedure
+                    End_Object
+
+                    Object oEquipo_itm is a cWebMenuItem
+                        Set psCaption to "Equipos"
+                        WebRegisterPath ntNavigateBegin oEquipoSelect
+                        Procedure OnClick
+                            Send NavigatePath
+                        End_Procedure
+                    End_Object
+
+                    Object oEntrenador_itm is a cWebMenuItem
+                        Set psCaption to "Entrenadores"
+                        WebRegisterPath ntNavigateBegin oEntrenadorSelect
+                        Procedure OnClick
+                            Send NavigatePath
+                        End_Procedure
+                    End_Object
+
+                    Object oJugador_itm is a cWebMenuItem
+                        Set psCaption to "Jugadores"
+                        WebRegisterPath ntNavigateBegin oJugadorSelect
+                        Procedure OnClick
+                            Send NavigatePath
+                        End_Procedure
+                    End_Object
+
+                    Object oPosicion_itm is a cWebMenuItem
+                        Set psCaption to "Posiciones"
+                        WebRegisterPath ntNavigateBegin oPosicionSelect
+                        Procedure OnClick
+                            Send NavigatePath
+                        End_Procedure
+                    End_Object
+
                 End_Object
 
                 Object oSignOut_itm is a cWebMenuItem
@@ -133,6 +174,17 @@ Object oWebApp is a cWebApp
 
     Use Dashboard.wo
     Set phoDefaultView to oDashboard
+
+    Use ligaSelect.wo
+    Use ligaZoom.wo
+    Use equipoSelect.wo
+    Use equipoZoom.wo
+    Use entrenadorSelect.wo
+    Use entrenadorZoom.wo
+    Use jugadorSelect.wo
+    Use jugadorZoom.wo
+    Use posicionSelect.wo
+    Use posicionZoom.wo
 
 End_Object
 
