@@ -1,0 +1,320 @@
+/* =====================================================
+   FutbolWebApp — Tema Amarillo & Negro
+   ===================================================== */
+
+/* --------------------------------------------------
+   1. VARIABLES DE COLOR — sobreescribimos el azul
+      del tema Df_Material con amarillo fútbol
+-------------------------------------------------- */
+:root {
+    /* Amarillo principal */
+    --df-MainDark:    #C49A00;
+    --df-MainRegular: #FFD600;
+    --df-MainMedium:  #FFE033;
+    --df-MainLight:   #FFE966;
+    --df-MainLight2:  #FFF3A3;
+    --df-MainLight3:  #FFF9D0;
+    --df-MainLight4:  #FFFCE8;
+
+    /* Botones: fondo amarillo, texto oscuro */
+    --df-BtnBackgroundColor: #FFD600;
+    --df-BtnFocusColor:      #C49A00;
+    --df-BtnBorderColor:     transparent;
+    --df-BtnTextColor:       #111111;
+
+    /* Highlight (selección de texto, foco) */
+    --df-Highlight: #FFD600;
+}
+
+
+/* --------------------------------------------------
+   2. CABECERA PRINCIPAL — negro con acento amarillo
+-------------------------------------------------- */
+
+/* Panel de cabecera */
+.HeaderPanel {
+    background-color: #111111 !important;
+    border-bottom: 3px solid #FFD600;
+}
+
+/* Subpaneles dentro de la cabecera (menú, acciones) */
+.HeaderPanel > .WebCon_Sizer > .WebCon_Main > .WebContainer,
+.HeaderPanel .WebCon_Content {
+    background-color: #111111;
+}
+
+/* Panel inferior de la cabecera (breadcrumb horizontal) */
+.HeaderPanel .WebPanel[class*="prBottom"],
+.HeaderPanel > div > div > div > .WebCon_ContentWrp {
+    background-color: #1A1A1A;
+}
+
+/* Texto de título / breadcrumb en la cabecera */
+.HeaderPanel .WebBreadcrumb,
+.HeaderPanel .WebBreadcrumb a,
+.HeaderPanel .WebBreadcrumb span,
+.HeaderPanel label.WebWin_title {
+    color: #FFD600 !important;
+}
+
+.HeaderPanel .WebBreadcrumb a:hover {
+    color: #FFFFFF !important;
+}
+
+/* Botón de menú hamburguesa */
+.HeaderPanel .WebMenuButton > button,
+.HeaderPanel .WebButton > button {
+    background-color: transparent !important;
+    color: #FFD600 !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.HeaderPanel .WebMenuButton > button:hover,
+.HeaderPanel .WebButton > button:hover {
+    background-color: rgba(255, 214, 0, 0.12) !important;
+    color: #FFD600 !important;
+}
+
+/* Iconos de la cabecera (iconos de fuente DataFlex) */
+.HeaderPanel .WebCon_Icon::before,
+.HeaderPanel button::before,
+.HeaderPanel .df-icon::before {
+    color: #FFD600 !important;
+}
+
+/* Barra de acción principal */
+.HeaderPanel .WebActionBar .WebButton > button {
+    background-color: transparent !important;
+    color: #FFD600 !important;
+    border: 1px solid rgba(255, 214, 0, 0.35) !important;
+}
+
+.HeaderPanel .WebActionBar .WebButton > button:hover {
+    background-color: rgba(255, 214, 0, 0.15) !important;
+}
+
+
+/* --------------------------------------------------
+   3. BOTONES GENERALES
+-------------------------------------------------- */
+
+.WebButton > button {
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.WebButton > button:hover {
+    background-color: #C49A00 !important;
+    box-shadow: 0 2px 6px rgba(196, 154, 0, 0.4);
+}
+
+.WebButton > button:active {
+    background-color: #A07E00 !important;
+}
+
+/* Botón secundario / outline */
+.WebButton.Web_ButtonSecondary > button,
+.WebButton.btn-secondary > button {
+    background-color: #FFFFFF !important;
+    color: #111111 !important;
+    border: 1px solid #111111 !important;
+}
+
+.WebButton.Web_ButtonSecondary > button:hover,
+.WebButton.btn-secondary > button:hover {
+    background-color: #F5F5F5 !important;
+}
+
+
+/* --------------------------------------------------
+   4. LISTAS / GRIDS — fila seleccionada en amarillo
+-------------------------------------------------- */
+
+/* Fila activa / seleccionada */
+.WebList .WebList_Row_Selected,
+.WebGrid .WebList_Row_Selected {
+    background-color: #FFD600 !important;
+    color: #111111 !important;
+}
+
+/* Hover de fila */
+.WebList .WebList_Row:hover,
+.WebGrid .WebList_Row:hover {
+    background-color: #FFF3A3 !important;
+    color: #111111 !important;
+}
+
+/* Cabecera de columna */
+.WebList .WebList_Head,
+.WebGrid .WebList_Head {
+    background-color: #111111;
+    color: #FFD600;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+/* Separador de columnas en la cabecera */
+.WebList .WebList_Head th,
+.WebGrid .WebList_Head th {
+    border-bottom: 2px solid #FFD600;
+    padding: 8px 6px;
+}
+
+/* Filas alternas */
+.WebList .WebList_Row_Even,
+.WebGrid .WebList_Row_Even {
+    background-color: #FAFAFA;
+}
+
+.WebList .WebList_Row_Odd,
+.WebGrid .WebList_Row_Odd {
+    background-color: #FFFFFF;
+}
+
+
+/* --------------------------------------------------
+   5. FONDO GENERAL Y VISTAS
+-------------------------------------------------- */
+
+/* Fondo principal de la app */
+.WebApp.WebContainer {
+    background-color: #F2F2F2;
+}
+
+/* Título de las vistas */
+.WebInlineView label.WebWin_title {
+    color: #111111;
+    font-weight: 700;
+    font-size: 160%;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #FFD600;
+    margin-bottom: 8px;
+}
+
+
+/* --------------------------------------------------
+   6. CONTROLES DE FORMULARIO — foco en amarillo
+-------------------------------------------------- */
+
+.WebControl.Web_Enabled.WebCon_Focus > div > div > .WebFrm_Wrapper,
+.WebTreeView.WebCon_Focus .WebTree_Body {
+    border-color: #FFD600 !important;
+    box-shadow: 0 0 0 2px rgba(255, 214, 0, 0.25);
+}
+
+
+/* --------------------------------------------------
+   7. PANELES DIVISORES — amarillo en lugar de azul
+-------------------------------------------------- */
+
+.WebPanel > .WebPanel_DividerVertical {
+    background: #FFD600;
+}
+
+.WebPanel > .WebPanel_DividerVertical:hover,
+.WebPanel > .WebPanel_DividerVertical:active {
+    background: #C49A00;
+}
+
+.WebPanel > .WebPanel_DividerHorizontal {
+    background: #FFD600;
+    border-right-color: #FFFFFF;
+    border-left-color: #FFFFFF;
+}
+
+
+/* --------------------------------------------------
+   8. ENLACES
+-------------------------------------------------- */
+
+a:link    { color: #C49A00; }
+a:visited { color: #9A7600; }
+a:hover   { color: #FFD600; }
+a:active  { color: #111111; }
+
+
+/* --------------------------------------------------
+   9. MENÚ DESPLEGABLE
+-------------------------------------------------- */
+
+/* Elemento activo/seleccionado del menú */
+.WebMenuList .WebMenuItem.Web_Selected,
+.WebMenuList .WebMenuItem:focus,
+.WebMenuList .WebMenuItem:hover {
+    background-color: #FFD600 !important;
+    color: #111111 !important;
+}
+
+.WebMenuList .WebMenuItem.Web_Selected *,
+.WebMenuList .WebMenuItem:focus *,
+.WebMenuList .WebMenuItem:hover * {
+    color: #111111 !important;
+}
+
+
+/* --------------------------------------------------
+   10. BARRA DE PROGRESO Y SLIDER
+-------------------------------------------------- */
+
+.WebProgressBar .WebPrg_Bar {
+    background-color: #FFD600;
+}
+
+
+/* --------------------------------------------------
+   11. DASHBOARD — Tarjetas limpias con esquinas
+       redondeadas
+-------------------------------------------------- */
+
+.Tile {
+    border-radius: 16px !important;
+    overflow: hidden;
+    border: none !important;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+}
+
+/* Eliminar scrollbar en todos los elementos internos del tile */
+.Tile > div,
+.Tile .WebHtmlBox,
+.Tile .WebHtmlBox > div,
+.Tile .WebCon_Sizer,
+.Tile * {
+    overflow: hidden !important;
+    border-radius: 16px;
+}
+
+.Tile .WebCon_Sizer {
+    padding: 18px 14px;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Tile_Title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.2;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.Tile_Subtitle {
+    font-size: 0.75rem;
+    color: #777777;
+    margin-top: 5px;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.Tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}

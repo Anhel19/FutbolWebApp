@@ -33,4 +33,6 @@ IdeSrc/*.mtd
 *.exe.manifest
 *.x64.cch
 AppHtml/
+!AppHtml/CssStyle/
+!AppHtml/CssStyle/application.css
 Programs/
