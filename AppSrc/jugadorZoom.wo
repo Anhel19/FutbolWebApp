@@ -36,35 +36,30 @@ Object oJugadorZoom is a cWebView
         Object oNacionalidadForm is a cWebCombo
             Entry_Item jugador.Nacionalidad
             Set psCaption to "Nacionalidad"
-            Set piColumnSpan to 6 
-             Procedure OnFill
-        Forward Send OnFill
-        Send AddComboItem "Alemán" "Alemán"
-        Send AddComboItem "Argentino" "Argentino"
-        Send AddComboItem "Belga" "Belga"
-        Send AddComboItem "Brasileño" "Brasileño"
-        Send AddComboItem "Colombiano" "Colombiano"
-        Send AddComboItem "Egipcio" "Egipcio"
-        Send AddComboItem "Escocés" "Escocés"
-        Send AddComboItem "Esloveno" "Esloveno"
-        Send AddComboItem "Español" "Español"
-        Send AddComboItem "Francés" "Francés"
-        Send AddComboItem "Húngaro" "Húngaro"
-        Send AddComboItem "Inglés" "Inglés"
-        Send AddComboItem "Italiano" "Italiano"
-        Send AddComboItem "Mozambiqueño" "Mozambiqueño"
-        Send AddComboItem "Neerlandés" "Neerlandés"
-        Send AddComboItem "Noruego" "Noruego"
-        Send AddComboItem "Polaco" "Polaco"
-        Send AddComboItem "Portugués" "Portugués"
-        Send AddComboItem "Uruguayo" "Uruguayo"
-    End_Procedure
-          
-    Entry_Item entrenador.Nacionalidad
-    Set psCaption to "Nacionalidad"
-    Set piColumnSpan to 6
+            Set piColumnSpan to 6
 
-   
+            Procedure OnFill
+                Forward Send OnFill
+                Send AddComboItem "Alemán" "Alemán"
+                Send AddComboItem "Argentino" "Argentino"
+                Send AddComboItem "Belga" "Belga"
+                Send AddComboItem "Brasileño" "Brasileño"
+                Send AddComboItem "Colombiano" "Colombiano"
+                Send AddComboItem "Egipcio" "Egipcio"
+                Send AddComboItem "Escocés" "Escocés"
+                Send AddComboItem "Esloveno" "Esloveno"
+                Send AddComboItem "Español" "Español"
+                Send AddComboItem "Francés" "Francés"
+                Send AddComboItem "Húngaro" "Húngaro"
+                Send AddComboItem "Inglés" "Inglés"
+                Send AddComboItem "Italiano" "Italiano"
+                Send AddComboItem "Mozambiqueño" "Mozambiqueño"
+                Send AddComboItem "Neerlandés" "Neerlandés"
+                Send AddComboItem "Noruego" "Noruego"
+                Send AddComboItem "Polaco" "Polaco"
+                Send AddComboItem "Portugués" "Portugués"
+                Send AddComboItem "Uruguayo" "Uruguayo"
+            End_Procedure
 
         End_Object
 

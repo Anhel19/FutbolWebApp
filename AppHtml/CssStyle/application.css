@@ -53,8 +53,32 @@
 .HeaderPanel .WebBreadcrumb,
 .HeaderPanel .WebBreadcrumb a,
 .HeaderPanel .WebBreadcrumb span,
-.HeaderPanel label.WebWin_title {
-    color: #FFD600 !important;
+.HeaderPanel label.WebWin_title,
+.WebBreadcrumb a,
+.WebBreadcrumb span,
+.WebCrumb_Caption,
+.WebCrumbs li,
+.WebCrumbs li a,
+.WebCrumbs li div {
+    color: #111111 !important;
+}
+
+/* Título de vista actual en la barra — blanco muy iluminado
+   Selector exacto extraído del DevTools para superar la especificidad del theme */
+/* "Posiciones" junto al hamburger (barra negra) — blanco brillante */
+.WebBreadcrumb .WebCrumbs_DropDown div.WebCrumb_Caption {
+    color: #FFFFFF !important;
+    text-shadow:
+        0 0 4px  #fff,
+        0 0 12px rgba(255, 255, 255, 0.9),
+        0 0 24px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Items de la lista de breadcrumb (barra amarilla) — negro */
+.WebBreadcrumb .WebCrumbs_Horiz .WebCurrentCrumb div.WebCrumb_Caption,
+.WebCurrentCrumb div.WebCrumb_Caption {
+    color: #111111 !important;
+    text-shadow: none !important;
 }
 
 .HeaderPanel .WebBreadcrumb a:hover {
@@ -178,26 +202,103 @@
    5. FONDO GENERAL Y VISTAS
 -------------------------------------------------- */
 
-/* Fondo principal de la app */
-.WebApp.WebContainer {
-    background-color: #F2F2F2;
+/* Fondo épico de afición — aplicado al body para evitar que
+   el theme.css de DataFlex (cargado después) lo sobreescriba */
+body {
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+        url('../Images/fondo-futbol.png') !important;
+    background-size: cover !important;
+    background-position: center top !important;
+    background-attachment: fixed !important;
+    background-color: #111111 !important;
+}
+
+/* Hacemos transparentes TODOS los contenedores DataFlex */
+.WebApp.WebContainer,
+.WebInlineView,
+.WebInlineView > .WebContainer,
+.WebInlineView > div.WebContainer,
+.WebPanel,
+.WebPanel > .WebCon_Sizer,
+.WebPanel > .WebCon_Sizer > .WebCon_Main,
+.WebGroup,
+.WebContainer,
+.WebCon_Main,
+.WebCon_Content,
+.WebCon_ContentWrp {
+    background-color: transparent !important;
+    background: transparent !important;
 }
 
 /* Título de las vistas */
 .WebInlineView label.WebWin_title {
-    color: #111111;
+    color: #FFD600;
     font-weight: 700;
     font-size: 160%;
     padding-bottom: 8px;
     border-bottom: 2px solid #FFD600;
     margin-bottom: 8px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
 }
 
 
 /* --------------------------------------------------
    6. CONTROLES DE FORMULARIO — foco en amarillo
+      y etiquetas visibles sobre fondo oscuro
 -------------------------------------------------- */
 
+/* ---- ETIQUETAS DE FORMULARIO ----
+   psCaption (servidor) no llega a psLabel (cliente) en DataFlex Web.
+   Solución: CSS ::before con texto fijo usando data-dfobj.
+   Los labels tienen fondo negro para verse sobre el fan-image.
+--------------------------------------- */
+html body .WebControl > div > label,
+html body .WebControl .WebCon_Inner > label {
+    color: #FFD600 !important;
+    background: rgba(0, 0, 0, 0.72) !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    padding: 4px 10px !important;
+    border-radius: 4px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    white-space: nowrap !important;
+    min-height: 1.4em !important;
+    line-height: 1.4 !important;
+}
+
+/* Texto de etiquetas via ::before — campos comunes a todos los formularios */
+[data-dfobj*="oIdForm"]           .WebCon_Inner > label::before { content: "ID"; }
+[data-dfobj*="oNombreForm"]       .WebCon_Inner > label::before { content: "Nombre"; }
+[data-dfobj*="oApellidoForm"]     .WebCon_Inner > label::before { content: "Apellido"; }
+[data-dfobj*="oNacionalidadForm"] .WebCon_Inner > label::before { content: "Nacionalidad"; }
+[data-dfobj*="oEquipoIDForm"]     .WebCon_Inner > label::before { content: "Equipo ID"; }
+[data-dfobj*="oEquipoNombreForm"] .WebCon_Inner > label::before { content: "Nombre Equipo"; }
+
+/* Equipo */
+[data-dfobj*="oLigaIDForm"]       .WebCon_Inner > label::before { content: "Liga ID"; }
+[data-dfobj*="oLigaNombreForm"]   .WebCon_Inner > label::before { content: "Nombre Liga"; }
+
+/* Liga */
+[data-dfobj*="oPaisForm"]         .WebCon_Inner > label::before { content: "País"; }
+[data-dfobj*="oEquiposForm"]      .WebCon_Inner > label::before { content: "Equipos"; }
+[data-dfobj*="oEquiposMaxForm"]   .WebCon_Inner > label::before { content: "Máx. Equipos"; }
+
+/* Posición — solo tiene ID y Nombre, ya cubiertos arriba */
+
+
+/* Campos de solo lectura — fondo gris tenue para distinguirlos */
+.WebForm.Web_ReadOnly .WebFrm_Wrapper,
+.WebForm.Web_ReadOnly input {
+    background-color: rgba(60, 60, 60, 0.4) !important;
+    color: #aaaaaa !important;
+    cursor: not-allowed !important;
+}
+
+/* Foco del campo — borde amarillo */
 .WebControl.Web_Enabled.WebCon_Focus > div > div > .WebFrm_Wrapper,
 .WebTreeView.WebCon_Focus .WebTree_Body {
     border-color: #FFD600 !important;
@@ -264,57 +365,154 @@ a:active  { color: #111111; }
 
 
 /* --------------------------------------------------
-   11. DASHBOARD — Tarjetas limpias con esquinas
-       redondeadas
+   11. DASHBOARD — Opción C: Glass oscuro con acento
+       superior amarillo
 -------------------------------------------------- */
 
-.Tile {
-    border-radius: 16px !important;
-    overflow: hidden;
+/* Eliminar el panel blanco que envuelve las tarjetas */
+.WebInlineView > div.WebContainer,
+.WebInlineView > .WebContainer,
+.WebInlineView,
+.WebApp > .WebCon_Sizer > .WebCon_Main > .WebContainer,
+.WebApp > .WebCon_Sizer > .WebCon_Main > .WebContainer > .WebCon_Content {
+    background-color: transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
     border: none !important;
-    background-color: #FFFFFF;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Tarjeta — glass oscuro luminoso */
+.Tile {
+    background: linear-gradient(
+        160deg,
+        rgba(255, 214, 0, 0.07) 0%,
+        rgba(10, 10, 10, 0.82) 40%
+    ) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 214, 0, 0.35) !important;
+    border-top: 3px solid #FFD600 !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+    box-shadow:
+        0 0 12px rgba(255, 214, 0, 0.25),
+        0 0 28px rgba(255, 214, 0, 0.10),
+        inset 0 1px 0 rgba(255, 214, 0, 0.20);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     cursor: pointer;
 }
 
-/* Eliminar scrollbar en todos los elementos internos del tile */
 .Tile > div,
 .Tile .WebHtmlBox,
 .Tile .WebHtmlBox > div,
 .Tile .WebCon_Sizer,
 .Tile * {
     overflow: hidden !important;
-    border-radius: 16px;
+    border-radius: 0 !important;
+    background: transparent !important;
 }
 
 .Tile .WebCon_Sizer {
-    padding: 18px 14px;
+    padding: 20px 16px;
     min-height: 90px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
+/* Línea decorativa amarilla */
+.Tile .WebCon_Sizer::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 2px;
+    background: #FFD600;
+    margin-bottom: 10px;
+}
+
 .Tile_Title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #111111;
-    line-height: 1.2;
-    white-space: normal;
-    overflow-wrap: break-word;
-    word-break: break-word;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    color: #FFD600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: block !important;
+    width: 100% !important;
+    word-break: keep-all !important;
+    text-shadow:
+        0 0 8px  rgba(255, 214, 0, 0.9),
+        0 0 20px rgba(255, 214, 0, 0.5),
+        0 0 40px rgba(255, 214, 0, 0.2) !important;
+}
+
+.Tile .Tile_Title,
+.WebHtmlBox.Tile .Tile_Title,
+div.Tile_Title {
+    font-size: 13px !important;
+    white-space: nowrap !important;
+    text-shadow:
+        0 0 8px  rgba(255, 214, 0, 0.9),
+        0 0 20px rgba(255, 214, 0, 0.5),
+        0 0 40px rgba(255, 214, 0, 0.2) !important;
 }
 
 .Tile_Subtitle {
-    font-size: 0.75rem;
-    color: #777777;
-    margin-top: 5px;
+    font-size: 0.72rem;
+    color: #aaaaaa !important;
+    margin-top: 6px;
     white-space: normal;
     overflow-wrap: break-word;
 }
 
 .Tile:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+    background: linear-gradient(
+        160deg,
+        rgba(255, 214, 0, 0.13) 0%,
+        rgba(20, 20, 20, 0.88) 40%
+    ) !important;
+    border-color: rgba(255, 214, 0, 0.7) !important;
+    border-top-color: #FFD600 !important;
+    box-shadow:
+        0 0 20px rgba(255, 214, 0, 0.45),
+        0 0 50px rgba(255, 214, 0, 0.20),
+        0 8px 24px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 214, 0, 0.35);
+}
+
+
+/* --------------------------------------------------
+   12. DASHBOARD — Jugador decorativo
+       Usa body:has(.Dashboard) para mostrar el jugador
+       solo en la pantalla de dashboard, con position:fixed
+       para evitar que overflow:hidden lo recorte
+-------------------------------------------------- */
+
+body:has(.Dashboard)::after {
+    content: '';
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+    height: 80vh;
+    background-image: url('../Images/jugador-balon.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    mix-blend-mode: multiply;
+    filter: invert(1);
+    opacity: 0.88;
+    pointer-events: none;
+    z-index: 0;
+    animation: playerFloat 5s ease-in-out infinite;
+}
+
+@keyframes playerFloat {
+    0%, 100% { transform: translate(-50%, -50%);             }
+    50%       { transform: translate(-50%, calc(-50% - 10px)); }
 }
