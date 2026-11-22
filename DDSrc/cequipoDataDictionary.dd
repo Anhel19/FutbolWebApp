@@ -6,7 +6,7 @@ Open jugador
 Open liga
 
 Class cequipoDataDictionary is a DataDictionary
-    
+
     Procedure Construct_Object
         Forward Send Construct_Object
         Set Main_File to equipo.File_Number
@@ -21,6 +21,89 @@ Class cequipoDataDictionary is a DataDictionary
         Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
         Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
 
+        Set Key_Field_State Field equipo.ID to True
+
+        Set Field_Option Field equipo.Nombre DD_NOPUT to True
+        Set Field_Option Field equipo.Nombre DD_REQUIRED to True
+        Set Field_Option Field equipo.LigaID DD_REQUIRED to True
+
+        // Almacena el LigaID anterior antes de guardar (para detectar cambios)
+        Property Integer piOldLigaID 0
+
+    End_Procedure
+
+    // Guarda el LigaID actual antes de que se escriba el registro
+    Procedure Before_Write_Record Integer iFile Boolean bIsNew
+        Forward Send Before_Write_Record iFile bIsNew
+        If (iFile = equipo.File_Number and bIsNew = False) Begin
+            Set piOldLigaID to equipo.LigaID
+        End
+    End_Procedure
+
+    // Actualiza Equipos en liga tras guardar un equipo
+    Procedure After_Write_Record Integer iFile Boolean bIsNew
+        Integer iOldLigaID iNewLigaID
+        Forward Send After_Write_Record iFile bIsNew
+        If (iFile = equipo.File_Number) Begin
+            Move equipo.LigaID to iNewLigaID
+            If bIsNew Begin
+                // Equipo nuevo: incrementar Equipos en su liga
+                If (iNewLigaID > 0) Begin
+                    Move iNewLigaID to liga.ID
+                    Find GE liga.ID
+                    If (Found and liga.ID = iNewLigaID) Begin
+                        Lock
+                        Move (liga.Equipos + 1) to liga.Equipos
+                        SaveRecord liga.File_Number
+                    End
+                End
+            End
+            Else Begin
+                Get piOldLigaID to iOldLigaID
+                If (iOldLigaID <> iNewLigaID) Begin
+                    // Decrementar la liga anterior
+                    If (iOldLigaID > 0) Begin
+                        Move iOldLigaID to liga.ID
+                        Find GE liga.ID
+                        If (Found and liga.ID = iOldLigaID) Begin
+                            Lock
+                            Move (liga.Equipos - 1) to liga.Equipos
+                            If (liga.Equipos < 0) Move 0 to liga.Equipos
+                            SaveRecord liga.File_Number
+                        End
+                    End
+                    // Incrementar la nueva liga
+                    If (iNewLigaID > 0) Begin
+                        Move iNewLigaID to liga.ID
+                        Find GE liga.ID
+                        If (Found and liga.ID = iNewLigaID) Begin
+                            Lock
+                            Move (liga.Equipos + 1) to liga.Equipos
+                            SaveRecord liga.File_Number
+                        End
+                    End
+                End
+            End
+        End
+    End_Procedure
+
+    // Actualiza Equipos en liga al eliminar un equipo
+    Procedure After_Delete_Record Integer iFile
+        Integer iLigaID
+        Forward Send After_Delete_Record iFile
+        If (iFile = equipo.File_Number) Begin
+            Move equipo.LigaID to iLigaID
+            If (iLigaID > 0) Begin
+                Move iLigaID to liga.ID
+                Find GE liga.ID
+                If (Found and liga.ID = iLigaID) Begin
+                    Lock
+                    Move (liga.Equipos - 1) to liga.Equipos
+                    If (liga.Equipos < 0) Move 0 to liga.Equipos
+                    SaveRecord liga.File_Number
+                End
+            End
+        End
     End_Procedure
 
 End_Class
