@@ -185,6 +185,7 @@ Object oWebApp is a cWebApp
     Use jugadorZoom.wo
     Use posicionSelect.wo
     Use posicionZoom.wo
+    Use selectJugadorPosicion.wo
 
 End_Object
 

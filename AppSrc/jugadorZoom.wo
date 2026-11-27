@@ -2,12 +2,19 @@ Use cWebView.pkg
 Use cWebPanel.pkg
 Use cWebForm.pkg
 Use cWebButton.pkg
+Use cWebList.pkg
+Use cWebColumn.pkg
 Use cjugadorDataDictionary.dd
+Use cjugadorposicionDataDictionary.dd
 
 Object oJugadorZoom is a cWebView
     Set psCaption to "Jugador"
 
     Object oJugadorDDO is a cjugadorDataDictionary
+        Set DDO_Server to Self
+    End_Object
+
+    Object oJugadorPosicionDDO is a cjugadorposicionDataDictionary
         Set DDO_Server to Self
     End_Object
 
@@ -69,6 +76,28 @@ Object oJugadorZoom is a cWebView
             Procedure OnClick
                 Send Request_Delete
             End_Procedure
+        End_Object
+
+        Object oEditarPosicionesBtn is a cWebButton
+            Set psCaption to "Editar Posiciones"
+            Set piColumnSpan to 3
+
+            WebRegisterPath ntNavigateForward oSelectJugadorPosicion
+
+            Procedure OnClick
+                Send NavigatePath
+            End_Procedure
+        End_Object
+
+        Object oPosicionesJugadorList is a cWebList
+            Set piColumnSpan to 12
+
+            Object oJPPosNombreCol is a cWebColumn
+                Entry_Item posicion.Nombre
+                Set psCaption to "Posicion"
+                Set pbSortable to True
+            End_Object
+
         End_Object
 
     End_Object

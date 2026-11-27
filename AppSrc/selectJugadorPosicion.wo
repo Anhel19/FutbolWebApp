@@ -1,0 +1,104 @@
+Use cWebView.pkg
+Use cWebPanel.pkg
+Use cWebList.pkg
+Use cWebColumn.pkg
+Use cWebButton.pkg
+Use cWebForm.pkg
+Use cjugadorDataDictionary.dd
+Use cjugadorposicionDataDictionary.dd
+Use cposicionDataDictionary.dd
+
+Object oSelectJugadorPosicion is a cWebView
+    Set psCaption to "Posiciones del Jugador"
+
+    Object oJugadorDDO is a cjugadorDataDictionary
+        Set DDO_Server to Self
+    End_Object
+
+    Object oJugadorPosicionDDO is a cjugadorposicionDataDictionary
+        Set DDO_Server to Self
+    End_Object
+
+    Object oPosicionDDO is a cposicionDataDictionary
+        Set DDO_Server to Self
+    End_Object
+
+    Object oWebMainPanel is a cWebPanel
+        Set piColumnCount to 12
+
+        Object oJugadorNombreForm is a cWebForm
+            Entry_Item jugador.Nombre
+            Set psCaption to "Jugador"
+            Set piColumnSpan to 8
+            Set pbReadOnly to True
+        End_Object
+
+        Object oAddBtn is a cWebButton
+            Set psCaption to "Añadir"
+            Set piColumnSpan to 2
+
+            Procedure OnClick
+                Integer iJugadorID iPosicionID
+
+                Get Field_Current_Value of oJugadorDDO (RefTable(jugador)) jugador.ID to iJugadorID
+                Get Field_Current_Value of oPosicionDDO (RefTable(posicion)) posicion.ID to iPosicionID
+
+                If (iPosicionID > 0 and iJugadorID > 0) Begin
+                    Send Request_Clear of oJugadorPosicionDDO
+                    Set Field_Changed_Value of oJugadorPosicionDDO (RefTable(jugador)) jugador.ID to iJugadorID
+                    Set Field_Changed_Value of oJugadorPosicionDDO (RefTable(posicion)) posicion.ID to iPosicionID
+                    Send Request_Save of oJugadorPosicionDDO
+                End
+            End_Procedure
+        End_Object
+
+        Object oDeleteBtn is a cWebButton
+            Set psCaption to "Borrar"
+            Set piColumnSpan to 2
+
+            Procedure OnClick
+                Send Request_Delete of oJugadorPosicionDDO
+            End_Procedure
+        End_Object
+
+        Object oTodasPosicionesList is a cWebList
+            Set pbServerOnRowClick to True
+            Set piColumnSpan to 12
+
+            Object oPosIdCol is a cWebColumn
+                Entry_Item posicion.ID
+                Set psCaption to "ID"
+                Set piWidth to 60
+                Set pbSortable to True
+            End_Object
+
+            Object oPosNombreCol is a cWebColumn
+                Entry_Item posicion.Nombre
+                Set psCaption to "Todas las Posiciones"
+                Set pbSortable to True
+            End_Object
+
+        End_Object
+
+        Object oPosicionesJugadorList is a cWebList
+            Set pbServerOnRowClick to True
+            Set piColumnSpan to 12
+
+            Object oJPPosIdCol is a cWebColumn
+                Entry_Item jugadorposicion.PosicionID
+                Set psCaption to "ID"
+                Set piWidth to 60
+                Set pbSortable to True
+            End_Object
+
+            Object oJPPosNombreCol is a cWebColumn
+                Entry_Item posicion.Nombre
+                Set psCaption to "Posiciones del Jugador"
+                Set pbSortable to True
+            End_Object
+
+        End_Object
+
+    End_Object
+
+End_Object
